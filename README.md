@@ -1,28 +1,25 @@
-# http2byond
+###### based on [tigercat2000](https://github.com/tigercat2000)'s [http2byond](https://github.com/tigercat2000/http2byond)
 
-A communication layer between node.js and BYOND game servers.
+# byond-node
+
+A Node.js library for communicating with BYOND servers written in Typescript.
 
 ### Installation
-`npm install --save http2byond`
+`npm install byond-node`
 
-### [Documentation](https://tigercat2000.github.io/http2byond/http2byond.html)
 
 ### Example
 ```javascript
-const http2byond = require("./index.js");
-let connection = new http2byond({
+const ByondClient = require("byond-node");
+
+const client = new ByondClient({
+	address: "localhost",
+	port: 1337
 	timeout: 2000
 });
 
-var form = {
-	ip: "localhost",
-	port: "6666",
-	topic: "?status"
-};
-
-connection.run(form).then((body) => {
-	console.log(body);
-}, (err) => {
-	console.error("ERR", err);
-});
+client.call("?status")
+	.then(
+		res => console.log(res),
+		err => console.error("ERR", err));
 ```

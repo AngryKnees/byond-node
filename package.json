@@ -1,15 +1,20 @@
 {
-  "name": "http2byond",
+  "name": "byond-node",
   "description": "Communication layer between node.js and BYOND game servers.",
-  "version": "2.0.0",
-  "author": "Tigercat2000",
-  "dependencies": {
-    "jspack": "0.0.4"
-  },
+  "version": "0.0.1",
+  "author": "AngryKnees",
   "keywords": [
     "byond"
   ],
+  "scripts": {
+    "build": "tsc"
+  },
   "license": "MIT",
-  "main": "index.js",
-  "repository": "tigercat2000/http2byond"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": "AngryKnees/byond-node",
+  "devDependencies": {
+    "typescript": "^3.7.5",
+    "@types/node": "^13.1.8"
+  }
 }
