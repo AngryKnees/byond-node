@@ -35,7 +35,7 @@ export default class ByondClient {
 				req = "?" + req;
 			}
 			// Use an unsigned short for the "expected data length" portion of the packet.
-			const expectedLengthBytes = new Uint8Array(Uint16Array.of(req.length + 6).buffer);
+			const expectedLengthBytes = (new Uint8Array(Uint16Array.of(req.length + 6).buffer)).reverse();
 			// Custom packet creation- BYOND expects special packets, this is based off /tg/'s PHP scripts containing a reverse engineered packet format.
 			const query = [
 				0x00, 0x83, // magic numbers
@@ -79,7 +79,8 @@ export default class ByondClient {
 				family: 4 // Use IPv4.
 			});
 
-			socket.on("connect", () => { // Socket successfully opened to the server. Ready to send and recieve data.
+			socket.on("connect", () => {
+				// Socket successfully opened to the server. Ready to send and recieve data.
 				// The timeout handler will interfere later, as the game server never sends an END packet.
 				// So, we just wait for it to time out to ensure we have all the data.
 				socket.removeListener("timeout", tHandler);
