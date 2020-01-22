@@ -28,7 +28,7 @@ export default class ByondClient {
 	}
 	
 	/** Async communication with BYOND gameservers. */
-	call(req: string): Promise<number | string | undefined> {
+	get(req: string): Promise<number | string | undefined> {
 		return new Promise((resolve, reject) => {
 			// All queries must begin with a question mark (ie "?players")
 			if (!req.startsWith("?")) {

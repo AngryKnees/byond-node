@@ -14,7 +14,7 @@ class ByondClient {
         this.address = opts.address || "localhost";
     }
     /** Async communication with BYOND gameservers. */
-    call(req) {
+    get(req) {
         return new Promise((resolve, reject) => {
             // All queries must begin with a question mark (ie "?players")
             if (!req.startsWith("?")) {
