@@ -1,3 +1,4 @@
+/// <reference types="node" />
 /** Options for constructing a ByondClient */
 export interface ByondClientOpts {
     /** IP Address to communicate with. */
@@ -14,5 +15,5 @@ export default class ByondClient {
     private readonly timeout;
     constructor(opts: ByondClientOpts);
     /** Async communication with BYOND gameservers. */
-    get(req: string): Promise<number | string | undefined>;
+    get(req: string): Promise<string | Buffer | undefined>;
 }

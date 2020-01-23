@@ -18,14 +18,14 @@ enum Offset {
 
 /** Decodes a response buffer and returns it's data */
 export function decodeBuffer(dbuff: Buffer): string | Buffer | undefined {
-	if (dbuff.readInt16BE(Offset.MagicNumber) === MagicNumber) { // Confirm the return packet is in the BYOND format.
+    if (dbuff.readInt16BE(Offset.MagicNumber) === MagicNumber) { // Confirm the return packet is in the BYOND format.
         const size = dbuff.readUInt16BE(Offset.ExpectedDataLength) - 1 // Byte size of the string/floating-point (minus the identifier byte).
         const data = dbuff.slice(Offset.Data, Offset.Data + size); // Take the data section
 
         if (dbuff[Offset.DataTypeIdentifier] === Identifier.String) { // ASCII String.
-			return String.fromCharCode(...data); // Return the data section as a string
-		} else {
+            return String.fromCharCode(...data); // Return the data section as a string
+        } else {
             return data;
         }
-	}
+    }
 }

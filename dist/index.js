@@ -77,13 +77,7 @@ class ByondClient {
                 socket.on("timeout", () => {
                     // Decode the assembled data.
                     const recieved_data = decoder_1.decodeBuffer(assembledBuffer);
-                    // The catch will deal with any errors from decode_buffer, but it could fail without erroring, so, make sure there's any data first.
-                    if (recieved_data) {
-                        resolve(recieved_data);
-                    }
-                    else {
-                        reject(`Unable to parse response to ${req}`);
-                    }
+                    resolve(recieved_data);
                     // Assume the socket is done sending data, and close the connection.
                     socket.end();
                 });
