@@ -17,17 +17,15 @@ enum Offset {
 }
 
 /** Decodes a response buffer and returns it's data */
-export function decodeBuffer(dbuff: Buffer): number | string | undefined {
+export function decodeBuffer(dbuff: Buffer): string | Buffer | undefined {
 	if (dbuff.readInt16BE(Offset.MagicNumber) === MagicNumber) { // Confirm the return packet is in the BYOND format.
-		const size = dbuff.readUInt16BE(Offset.ExpectedDataLength) - 1 // Byte size of the string/floating-point (minus the identifier byte).
+        const size = dbuff.readUInt16BE(Offset.ExpectedDataLength) - 1 // Byte size of the string/floating-point (minus the identifier byte).
+        const data = dbuff.slice(Offset.Data, Offset.Data + size); // Take the data section
 
-		if (dbuff[Offset.DataTypeIdentifier] === Identifier.Float) { // 4-byte big-endian floating point data.
-			return dbuff.readFloatBE(Offset.Data); // return the data section, assumed to be 4 bytes, as a Big Endian 32 bit float
-        } else if (dbuff[Offset.DataTypeIdentifier] === Identifier.String) { // ASCII String.
-            const data = dbuff.slice(Offset.Data, Offset.Data + size); // Take the data section
+        if (dbuff[Offset.DataTypeIdentifier] === Identifier.String) { // ASCII String.
 			return String.fromCharCode(...data); // Return the data section as a string
 		} else {
-            throw new Error("No data returned.");// Something went wrong, the packet contains no apparent data. Error as "no data returned".
+            return data;
         }
 	}
 }
