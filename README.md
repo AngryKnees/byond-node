@@ -10,16 +10,13 @@ A Node.js library for communicating with BYOND servers written in Typescript.
 
 ### Example
 ```javascript
-const ByondClient = require("byond-node");
+const ByondClient = require("byond-node").default;
 
 const client = new ByondClient({
-	address: "localhost",
+	address: "localhost", // default
 	port: 1337
-	timeout: 2000
+	timeout: 2000 // default
 });
 
-client.call("?status")
-	.then(
-		res => console.log(res),
-		err => console.error("ERR", err));
+client.get("?status").then(console.log, console.error);
 ```
